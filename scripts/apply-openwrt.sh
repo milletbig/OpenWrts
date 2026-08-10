@@ -45,8 +45,8 @@ apply_system() {
     exit 1
   fi
 
-  sed -i 's/192.168.1.1/192.168.10.1/g' "$config_generate"
-  echo "Default LAN IP changed to 192.168.10.1"
+  sed -i 's/192.168.1.1/192.168.1.2/g' "$config_generate"
+  echo "Default LAN IP changed to 192.168.1.2"
 }
 
 apply_feeds() {
