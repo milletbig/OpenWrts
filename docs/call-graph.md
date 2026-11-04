@@ -13,8 +13,8 @@ flowchart TD
     ManualInputs --> ManualResolveJob["manual-build.yml<br/>jobs.resolve"]
     ScheduleInputs --> ScheduleResolveJob["schedule-release.yml<br/>jobs.resolve"]
 
-    ManualResolveJob --> CheckoutA["actions/checkout@v4"]
-    ScheduleResolveJob --> CheckoutB["actions/checkout@v4"]
+    ManualResolveJob --> CheckoutA["actions/checkout@v6"]
+    ScheduleResolveJob --> CheckoutB["actions/checkout@v6"]
 
     CheckoutA --> ValidateA["node scripts/openwrts.mjs<br/>validate-manifest"]
     CheckoutB --> ValidateB["node scripts/openwrts.mjs<br/>validate-manifest"]
@@ -36,7 +36,7 @@ flowchart TD
     MatrixOutputB --> Reusable
 
     Reusable --> BuildJob["jobs.build<br/>ubuntu-22.04"]
-    BuildJob --> CheckoutC["actions/checkout@v4"]
+    BuildJob --> CheckoutC["actions/checkout@v6"]
     CheckoutC --> PrepareEnv["scripts/prepare-env.sh"]
     PrepareEnv --> AptDeps["apt install<br/>repo-specific build deps"]
 
@@ -47,7 +47,7 @@ flowchart TD
     RepoUrl --> GitClone["git clone --depth 1<br/>$REPO_URL -b $REPO_BRANCH"]
     GitClone --> OpenWrtTree["/mnt/workdir/openwrt"]
 
-    OpenWrtTree --> Cache["actions/cache@v4<br/>dl + .ccache"]
+    OpenWrtTree --> Cache["actions/cache@v6<br/>dl + .ccache"]
     Cache --> ApplyBase["scripts/apply-openwrt.sh<br/>system feeds"]
     ApplyBase --> ConfigGenerate["package/base-files/files/bin/config_generate<br/>LAN IP 192.168.1.2"]
     ApplyBase --> FeedAppend["append common + repo feeds<br/>to feeds.conf.default"]
@@ -77,9 +77,9 @@ flowchart TD
     BuildPackages --> BuildImages["scripts/build.sh images"]
 
     BuildImages --> Organize["Organize files<br/>find bin/targets/*/*"]
-    Organize --> Artifact["actions/upload-artifact@v4"]
+    Organize --> Artifact["actions/upload-artifact@v6"]
     Organize --> ReleaseBody["Generate release body"]
-    ReleaseBody --> Release["softprops/action-gh-release@v1"]
+    ReleaseBody --> Release["softprops/action-gh-release@v3"]
 ```
 
 ## Node.js CLI 调用图

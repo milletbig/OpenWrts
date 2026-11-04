@@ -148,7 +148,7 @@ jobs:
           echo "file_date=$(date +"%Y%m%d%H%M")" >> "$GITHUB_OUTPUT"
 
       - name: Upload firmware directory
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: OpenWrt_${{ inputs.repo }}_${{ inputs.device }}_${{ inputs.flavor }}_${{ steps.organize.outputs.file_date }}
           path: ${{ env.FIRMWARE }}
@@ -174,7 +174,7 @@ jobs:
           } > release.txt
 
       - name: Upload firmware to release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         if: ${{ inputs.upload_release }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

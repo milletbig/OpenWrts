@@ -459,7 +459,7 @@ jobs:
       matrix: \${{ steps.matrix.outputs.matrix }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Validate generated workflow files
         run: |
@@ -545,7 +545,7 @@ jobs:
       upload_release: \${{ steps.matrix.outputs.upload_release }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Validate generated workflow files
         run: |
