@@ -53,6 +53,29 @@
 
 已从 Standard 移除的典型项：`luci-app-store`、`luci-app-openclash`、`luci-app-passwall2`、`luci-app-samba4`、`luci-app-nfs`、`luci-app-frpc`、`luci-app-netdata`、`luci-app-oaf`、`luci-app-qbittorrent*`、`luci-app-docker`（保留 `dockerman` 即可）、多余主题和 `zh-tw`。
 
+#### VLESS + XTLS Vision / REALITY
+
+`luci-app-ssr-plus` 客户端原生支持 VLESS Vision，前提是使用 **Xray-core**（`v2ray-core` 不支持 Vision）。仓库已在 `standard` 和 `lite` 中显式固定：
+
+```config
+CONFIG_PACKAGE_luci-app-ssr-plus=y
+CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y
+CONFIG_PACKAGE_xray-core=y
+```
+
+helloworld feed 的 `xray-core` 当前为 `26.5.9`，SSR+ 版本为 `190`，具备 Vision / REALITY 能力。配置节点时：
+
+1. 节点类型选 `V2ray`，协议选 `VLESS`，填写 UUID（`vmess_id`）。
+2. 开启 TLS 后，`Flow` 可选 `xtls-rprx-vision` 或 `xtls-rprx-vision-udp443`；`none` 表示不使用 Vision。
+3. 如需 REALITY，开启 `reality` 并填写 public key / short id / spiderX；此时 `Flow` 仍可保持 `xtls-rprx-vision`。
+4. 新版 Xray 的 “VLESS Encryption” 字段也可在 SSR+ 中直接填写（留空即关闭）。
+
+注意事项：
+
+- SSR+ 的“服务器”端只支持 Socks5 / SS / SSR，**不能**在 R4S 上直接跑 VLESS Vision 服务端；作为客户端连接机场或自建 Xray 服务端没有问题。
+- 固定使用 Xray 后，`v2ray-core` 不会安装，镜像不会因为两个内核同时存在而额外膨胀。
+- 如果你更偏好 VLESS 系生态（Vision + REALITY + XHTTP），也可以改用已移除的 `luci-app-passwall2`；但 SSR+ 已能满足日常 Vision 节点。
+
 ### 2.2 Common Lite（`configs/apps/common/lite.config`）
 
 LEDE lite 和 ImmortalWrt lite 共用这份配置，插件清单与 Standard 一致：
