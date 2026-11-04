@@ -20,12 +20,8 @@ on:
         type: choice
         options:
           - all
-          - x86_64
-          - rpi3
-          - rpi4
-          - rpi5
           - rockchip
-        default: all
+        default: rockchip
       flavor:
         description: Firmware flavor. Use all to build every matching manifest entry.
         required: true

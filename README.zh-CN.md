@@ -16,20 +16,13 @@ OpenWrts 是一个基于 GitHub Actions 的 OpenWrt 云编译仓库。
 
 ## 固件构建列表
 
-固件构建列表会在生成 workflow 时从 `configs/` 下的配置片段同步到 [`manifests/builds.json`](./manifests/builds.json)。定时 workflow 负责计划发布，`auto` 模式会按 ISO 周奇偶在 LEDE 和 ImmortalWrt 之间轮换。
+固件构建列表会在生成 workflow 时从 `configs/` 下的配置片段同步到 [`manifests/builds.json`](./manifests/builds.json)。本仓库仅构建 NanoPi R4S；定时 workflow 默认使用 LEDE + NanoPi R4S。手动选择 `auto` 模式时仍会按 ISO 周奇偶在 LEDE 和 ImmortalWrt 之间轮换。
 
 | 源码 | 设备 ID | 平台 | 风格 | Workflow 状态 | 下载统计 |
 | --- | --- | --- | --- | --- | --- |
-| `lede` | `x86_64` | x86_64 generic | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rpi3` | Raspberry Pi 3B/3B+ | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rpi4` | Raspberry Pi 4B | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rpi5` | Raspberry Pi 5 | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rockchip` | R68S、NanoPi R2S/R4S/R5C/R5S、Orange Pi R1 Plus | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `x86_64` | x86_64 generic | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rpi3` | Raspberry Pi 3B/3B+ | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rpi4` | Raspberry Pi 4B | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rpi5` | Raspberry Pi 5 | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rockchip` | R68S、NanoPi R2S/R4S/R5C/R5S、Orange Pi R1 Plus | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
+| `lede` | `rockchip` | NanoPi R4S | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
+| `lede` | `rockchip` | NanoPi R4S | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
+| `immortalwrt` | `rockchip` | NanoPi R4S | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
 
 ## LuCI 插件列表
 
@@ -37,28 +30,31 @@ OpenWrts 是一个基于 GitHub Actions 的 OpenWrt 云编译仓库。
 
 | 分类 | 插件 |
 | --- | --- |
-| 商店与代理 | `luci-app-store`, `luci-app-openclash`, `luci-app-passwall2`, `luci-app-ssr-plus` |
-| 网络 | `luci-app-ddns`, `luci-app-mwan3`, `luci-app-n2n`, `luci-app-openvpn`, `luci-app-softethervpn`, `luci-app-syncdial`, `luci-app-upnp`, `luci-app-wireguard`, `luci-app-zerotier`, `luci-app-smartdns` |
-| 服务 | `luci-app-adguardhome`, `luci-app-docker`, `luci-app-dockerman`, `luci-app-filebrowser`, `luci-app-frpc`, `luci-app-nfs`, `luci-app-nps`, `luci-app-samba4`, `luci-app-ttyd`, `luci-app-vsftpd` |
-| 系统与工具 | `luci-app-accesscontrol`, `luci-app-arpbind`, `luci-app-autoreboot`, `luci-app-cifs-mount`, `luci-app-commands`, `luci-app-control-timewol`, `luci-app-diskman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-netdata`, `luci-app-nlbwmon`, `luci-app-onliner`, `luci-app-pushbot`, `luci-app-qos`, `luci-app-serverchan`, `luci-app-usb-printer`, `luci-app-vlmcsd`, `luci-app-wol` |
-| 扩展应用 | `luci-app-ipsec-vpnd`, `luci-app-mentohust`, `luci-app-oaf`, `luci-app-qbittorrent_static`, `luci-app-qbittorrent-simple_dynamic`, `luci-app-turboacc` |
-| 主题 | `luci-theme-argon`, `luci-theme-bootstrap`, `luci-theme-infinityfreedom`, `luci-theme-material`, `luci-theme-netgear`, `luci-theme-neobird` |
+| 代理 | `luci-app-ssr-plus` |
+| DNS 与加速 | `luci-app-adguardhome`, `luci-app-turboacc` |
+| 服务 | `luci-app-dockerman`, `luci-app-ttyd` |
+| 系统与工具 | `luci-app-diskman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-pushbot` |
+| 主题 | `luci-theme-argon` |
+| 语言 | `en`, `zh-cn` |
 
-### ImmortalWrt Lite
+### Lite（LEDE / ImmortalWrt）
+
+`lite` 使用共用的 `configs/apps/common/lite.config`，插件集与 Standard 相同。
 
 | 分类 | 插件 |
 | --- | --- |
-| 商店与代理 | `luci-app-store`, `luci-app-openclash`, `luci-app-passwall2`, `luci-app-ssr-plus` |
-| 网络 | `luci-app-accesscontrol`, `luci-app-smartdns`, `luci-app-turboacc`, `luci-proto-wireguard` |
-| 服务 | `luci-app-docker`, `luci-app-dockerman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-netdata`, `luci-app-oaf`, `luci-app-onliner`, `luci-app-ttyd` |
-| 系统默认 | `default-settings`, `default-settings-chn`, `luci-app-autoreboot` |
-| 主题 | `luci-theme-argon`, `luci-theme-bootstrap`, `luci-theme-material` |
+| 代理 | `luci-app-ssr-plus` |
+| DNS 与加速 | `luci-app-adguardhome`, `luci-app-turboacc` |
+| 服务 | `luci-app-dockerman`, `luci-app-ttyd` |
+| 系统与工具 | `luci-app-diskman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-pushbot` |
+| 主题 | `luci-theme-argon` |
+| 语言 | `en`, `zh-cn` |
 
 ## 支持的源码
 
 | 源码标识 | 上游仓库 | 默认分支 | 说明 |
 | --- | --- | --- | --- |
-| `lede` | <https://github.com/coolsnowwolf/lede> | `master` | Lean LEDE，当前用于 standard 构建 |
+| `lede` | <https://github.com/coolsnowwolf/lede> | `master` | Lean LEDE，当前用于 standard 和 lite 构建 |
 | `immortalwrt` | <https://github.com/immortalwrt/immortalwrt> | `master` | ImmortalWrt，当前用于共用 lite 构建 |
 
 两套源码的 SDK、feeds、LuCI 版本、软件包集合和插件兼容性并不完全一致。高把握可复用片段放在 `common` 下；同名的源码专属片段会优先生效。
@@ -83,7 +79,7 @@ schedule:
 
 约等于 Asia/Shanghai 时区的周日 00:23。
 
-定时构建默认使用 `repo=auto`、`devices=all`、`flavors=lite`。手动运行该定时 workflow 时，`devices` 和 `flavors` 支持逗号分隔多选，例如 `rpi3,rpi5` 和 `lite,standard`。设备值使用 `configs/targets/` 下不带 `.config` 后缀的配置名。
+定时构建默认使用 `repo=lede`、`devices=rockchip`、`flavors=standard`。手动运行该定时 workflow 时，`devices` 和 `flavors` 支持逗号分隔多选，例如 `rockchip` 和 `standard,lite`。设备值使用 `configs/targets/` 下不带 `.config` 后缀的配置名。
 
 ## 构建流程
 
@@ -163,9 +159,10 @@ repo + branch + cache_scope + hash(feeds/packages/scripts/configs/manifests)
 
 ## 固件默认设置
 
-- 管理地址：`192.168.10.1`
+- 管理地址：`192.168.1.2`
 - 用户：`root`
 - 密码：`password`
+- rootfs 分区：`2048` MB（`standard` 与 `lite` 均为该值）
 
 ## 手动构建
 
@@ -183,7 +180,7 @@ repo + branch + cache_scope + hash(feeds/packages/scripts/configs/manifests)
 
 ```powershell
 node scripts\openwrts.mjs validate-manifest
-node scripts\openwrts.mjs resolve-matrix --repo lede --device x86_64
+node scripts\openwrts.mjs resolve-matrix --repo lede --device rockchip
 node scripts\openwrts.mjs resolve-matrix --repo immortalwrt --device all
 node scripts\openwrts.mjs resolve-matrix --repo auto
 ```

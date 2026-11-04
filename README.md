@@ -16,20 +16,13 @@ OpenWrts builds OpenWrt firmware with GitHub Actions.
 
 ## Firmware Builds
 
-The firmware build list is synchronized into [`manifests/builds.json`](./manifests/builds.json) from config fragments under `configs/` when workflow generation runs. The scheduled workflow controls timed releases and alternates between LEDE and ImmortalWrt in `auto` mode.
+The firmware build list is synchronized into [`manifests/builds.json`](./manifests/builds.json) from config fragments under `configs/` when workflow generation runs. This fork is NanoPi R4S only; the scheduled workflow defaults to LEDE + NanoPi R4S. `auto` mode can still alternate between LEDE and ImmortalWrt by ISO week parity when selected manually.
 
 | Source | Device ID | Platform | Flavor | Workflow status | Downloads |
 | --- | --- | --- | --- | --- | --- |
-| `lede` | `x86_64` | x86_64 generic | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rpi3` | Raspberry Pi 3B/3B+ | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rpi4` | Raspberry Pi 4B | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rpi5` | Raspberry Pi 5 | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `lede` | `rockchip` | R68S, NanoPi R2S/R4S/R5C/R5S, Orange Pi R1 Plus | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `x86_64` | x86_64 generic | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rpi3` | Raspberry Pi 3B/3B+ | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rpi4` | Raspberry Pi 4B | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rpi5` | Raspberry Pi 5 | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
-| `immortalwrt` | `rockchip` | R68S, NanoPi R2S/R4S/R5C/R5S, Orange Pi R1 Plus | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
+| `lede` | `rockchip` | NanoPi R4S | `standard` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
+| `lede` | `rockchip` | NanoPi R4S | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
+| `immortalwrt` | `rockchip` | NanoPi R4S | `lite` | ![Scheduled Release](https://github.com/bigbugcc/OpenWrts/actions/workflows/schedule-release.yml/badge.svg) | ![Downloads](https://img.shields.io/github/downloads/bigbugcc/OpenWrts/total?style=flat-square) |
 
 ## LuCI Plugins
 
@@ -37,29 +30,32 @@ The firmware build list is synchronized into [`manifests/builds.json`](./manifes
 
 | Category | Plugins |
 | --- | --- |
-| Store and proxy | `luci-app-store`, `luci-app-openclash`, `luci-app-passwall2`, `luci-app-ssr-plus` |
-| Network | `luci-app-ddns`, `luci-app-mwan3`, `luci-app-n2n`, `luci-app-openvpn`, `luci-app-softethervpn`, `luci-app-syncdial`, `luci-app-upnp`, `luci-app-wireguard`, `luci-app-zerotier`, `luci-app-smartdns` |
-| Services | `luci-app-adguardhome`, `luci-app-docker`, `luci-app-dockerman`, `luci-app-filebrowser`, `luci-app-frpc`, `luci-app-nfs`, `luci-app-nps`, `luci-app-samba4`, `luci-app-ttyd`, `luci-app-vsftpd` |
-| System and tools | `luci-app-accesscontrol`, `luci-app-arpbind`, `luci-app-autoreboot`, `luci-app-cifs-mount`, `luci-app-commands`, `luci-app-control-timewol`, `luci-app-diskman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-netdata`, `luci-app-nlbwmon`, `luci-app-onliner`, `luci-app-pushbot`, `luci-app-qos`, `luci-app-serverchan`, `luci-app-usb-printer`, `luci-app-vlmcsd`, `luci-app-wol` |
-| Extra apps | `luci-app-ipsec-vpnd`, `luci-app-mentohust`, `luci-app-oaf`, `luci-app-qbittorrent_static`, `luci-app-qbittorrent-simple_dynamic`, `luci-app-turboacc` |
-| Themes | `luci-theme-argon`, `luci-theme-bootstrap`, `luci-theme-infinityfreedom`, `luci-theme-material`, `luci-theme-netgear`, `luci-theme-neobird` |
+| Proxy | `luci-app-ssr-plus` |
+| DNS and acceleration | `luci-app-adguardhome`, `luci-app-turboacc` |
+| Services | `luci-app-dockerman`, `luci-app-ttyd` |
+| System and tools | `luci-app-diskman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-pushbot` |
+| Themes | `luci-theme-argon` |
+| Languages | `en`, `zh-cn` |
 
-### ImmortalWrt Lite
+### Lite (LEDE / ImmortalWrt)
+
+`lite` uses the shared `configs/apps/common/lite.config` fragment and the same plugin set as Standard.
 
 | Category | Plugins |
 | --- | --- |
-| Store and proxy | `luci-app-store`, `luci-app-openclash`, `luci-app-passwall2`, `luci-app-ssr-plus` |
-| Network | `luci-app-accesscontrol`, `luci-app-smartdns`, `luci-app-turboacc`, `luci-proto-wireguard` |
-| Services | `luci-app-docker`, `luci-app-dockerman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-netdata`, `luci-app-oaf`, `luci-app-onliner`, `luci-app-ttyd` |
-| System defaults | `default-settings`, `default-settings-chn`, `luci-app-autoreboot` |
-| Themes | `luci-theme-argon`, `luci-theme-bootstrap`, `luci-theme-material` |
+| Proxy | `luci-app-ssr-plus` |
+| DNS and acceleration | `luci-app-adguardhome`, `luci-app-turboacc` |
+| Services | `luci-app-dockerman`, `luci-app-ttyd` |
+| System and tools | `luci-app-diskman`, `luci-app-filetransfer`, `luci-app-firewall`, `luci-app-pushbot` |
+| Themes | `luci-theme-argon` |
+| Languages | `en`, `zh-cn` |
 
 ## Supported Sources
 
 | Source ID | Upstream repository | Default branch | Notes |
 | --- | --- | --- | --- |
-| `lede` | <https://github.com/coolsnowwolf/lede> | `master` | Lean LEDE, currently used for standard builds |
-| `immortalwrt` | <https://github.com/immortalwrt/immortalwrt> | `master` | ImmortalWrt, currently used for shared lite builds |
+| `lede` | <https://github.com/coolsnowwolf/lede> | `master` | Lean LEDE, currently used for standard and lite builds |
+| `immortalwrt` | <https://github.com/immortalwrt/immortalwrt> | `master` | ImmortalWrt, currently used for the shared lite build |
 
 The two sources do not share the same SDK, feeds, LuCI version, package set, or plugin compatibility guarantees. High-confidence shared fragments live under `common`; source-specific fragments remain isolated and take precedence when they use the same name.
 
@@ -83,7 +79,7 @@ schedule:
 
 This is roughly Sunday 00:23 in Asia/Shanghai.
 
-The scheduled build defaults to `repo=auto`, `devices=all`, and `flavors=lite`. For a manual run of the scheduled workflow, `devices` and `flavors` accept comma-separated values, for example `rpi3,rpi5` and `lite,standard`. Device values are config names under `configs/targets/` without the `.config` suffix.
+The scheduled build defaults to `repo=lede`, `devices=rockchip`, and `flavors=standard`. For a manual run of the scheduled workflow, `devices` and `flavors` accept comma-separated values, for example `rockchip` and `standard,lite`. Device values are config names under `configs/targets/` without the `.config` suffix.
 
 ## Build Flow
 
@@ -163,9 +159,10 @@ This avoids reusing incompatible cache data across LEDE, ImmortalWrt, devices, a
 
 ## Default Firmware Settings
 
-- Management IP: `192.168.10.1`
+- Management IP: `192.168.1.2`
 - User: `root`
 - Password: `password`
+- Rootfs partition: `2048` MB for both `standard` and `lite`
 
 ## Manual Builds
 
@@ -183,7 +180,7 @@ For example, `repo=lede`, `device=all`, `flavor=lite` builds all LEDE targets wi
 
 ```powershell
 node scripts\openwrts.mjs validate-manifest
-node scripts\openwrts.mjs resolve-matrix --repo lede --device x86_64
+node scripts\openwrts.mjs resolve-matrix --repo lede --device rockchip
 node scripts\openwrts.mjs resolve-matrix --repo immortalwrt --device all
 node scripts\openwrts.mjs resolve-matrix --repo auto
 ```

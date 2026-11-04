@@ -1,0 +1,16 @@
+#!/bin/sh
+# NanoPi R4S first-boot defaults.
+# The build also changes the upstream default LAN IP via scripts/apply-openwrt.sh;
+# this overlay keeps the setting explicit and can be extended per device.
+
+uci set system.@system[0].hostname='NanoPi-R4S'
+uci set system.@system[0].timezone='CST-8'
+uci set system.@system[0].zonename='Asia/Shanghai'
+uci commit system
+
+uci set network.lan.proto='static'
+uci set network.lan.ipaddr='192.168.1.2'
+uci set network.lan.netmask='255.255.255.0'
+uci commit network
+
+exit 0

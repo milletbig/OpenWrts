@@ -13,17 +13,17 @@ on:
           - auto
           - lede
           - immortalwrt
-        default: auto
+        default: lede
       devices:
         description: Target config names, comma-separated for multiple devices, or all.
         required: true
         type: string
-        default: "all"
+        default: "rockchip"
       flavors:
         description: Firmware flavors, comma-separated for multiple flavors, or all.
         required: true
         type: string
-        default: "lite"
+        default: "standard"
       upload_release:
         description: Upload firmware to GitHub Releases.
         required: true
@@ -37,7 +37,7 @@ permissions:
 
 jobs:
   resolve:
-    name: ${{ (github.event.inputs.repo || 'auto') == 'lede' && 'LEDE' || (github.event.inputs.repo || 'auto') == 'immortalwrt' && 'ImmortalWrt' || 'Auto Source' }}
+    name: ${{ (github.event.inputs.repo || 'lede') == 'lede' && 'LEDE' || (github.event.inputs.repo || 'lede') == 'immortalwrt' && 'ImmortalWrt' || 'Auto Source' }}
     runs-on: ubuntu-22.04
     outputs:
       repo: ${{ steps.matrix.outputs.repo }}
@@ -56,9 +56,9 @@ jobs:
       - name: Resolve scheduled build matrix
         id: matrix
         env:
-          REQUESTED_REPO: ${{ github.event.inputs.repo || 'auto' }}
-          REQUESTED_DEVICES: ${{ github.event.inputs.devices || 'all' }}
-          REQUESTED_FLAVORS: ${{ github.event.inputs.flavors || 'lite' }}
+          REQUESTED_REPO: ${{ github.event.inputs.repo || 'lede' }}
+          REQUESTED_DEVICES: ${{ github.event.inputs.devices || 'rockchip' }}
+          REQUESTED_FLAVORS: ${{ github.event.inputs.flavors || 'standard' }}
           REQUESTED_UPLOAD_RELEASE: ${{ github.event.inputs.upload_release || 'true' }}
         run: |
           node scripts/openwrts.mjs resolve-matrix \

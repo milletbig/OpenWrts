@@ -49,7 +49,7 @@ flowchart TD
 
     OpenWrtTree --> Cache["actions/cache@v4<br/>dl + .ccache"]
     Cache --> ApplyBase["scripts/apply-openwrt.sh<br/>system feeds"]
-    ApplyBase --> ConfigGenerate["package/base-files/files/bin/config_generate<br/>LAN IP 192.168.10.1"]
+    ApplyBase --> ConfigGenerate["package/base-files/files/bin/config_generate<br/>LAN IP 192.168.1.2"]
     ApplyBase --> FeedAppend["append common + repo feeds<br/>to feeds.conf.default"]
     Feeds["feeds/common.conf<br/>feeds/$REPO.conf"] --> FeedAppend
 
@@ -151,7 +151,7 @@ flowchart TD
     ArgParser --> ApplyFeeds["apply_feeds()"]
     ArgParser --> ApplyPackages["apply_packages()"]
 
-    ApplySystem --> SedLanIp["sed 192.168.1.1 -> 192.168.10.1"]
+    ApplySystem --> SedLanIp["sed 192.168.1.1 -> 192.168.1.2"]
     ApplyFeeds --> RepoFeeds["feeds/$REPO.conf"]
     RepoFeeds --> AppendFeeds["cat >> openwrt/feeds.conf.default"]
     ApplyPackages --> PackageScript["packages/$REPO.sh"]

@@ -4,7 +4,7 @@
 
 OpenWrts is an OpenWrt firmware build orchestration repository. It does not vendor OpenWrt source code. Instead, it keeps build metadata, GitHub Actions workflows, shared/repo-specific config fragments, feeds, package clone scripts, and CI glue in one place.
 
-The current design uses shared target fragments under `configs/targets/`, shared/repo-specific app fragments under `configs/apps/`, and repo-specific driver fragments under `configs/drivers/` as the scanned build inputs. `manifests/builds.json` is the generated matrix and metadata file, and `scripts/openwrts.mjs` is the Node.js control plane for manifest synchronization, validation, matrix resolution, workflow generation, and repo URL lookup.
+The current design uses shared target fragments under `configs/targets/`, shared/repo-specific app fragments under `configs/apps/`, and repo/device-specific driver fragments under `configs/drivers/` as the scanned build inputs. `manifests/builds.json` is the generated matrix and metadata file, and `scripts/openwrts.mjs` is the Node.js control plane for manifest synchronization, validation, matrix resolution, workflow generation, and repo URL lookup.
 
 Application config fragments can be shared by flavor, for example `configs/apps/common/lite.config`, while source-specific variants such as `configs/apps/lede/standard.config` stay isolated. This is because LEDE and ImmortalWrt do not have identical package sets or LuCI compatibility. The manual workflow uses a static global flavor selector, so its default is pinned to the valid `lede` + `standard` combination instead of `all`.
 
@@ -35,7 +35,7 @@ flowchart LR
     Reusable --> Config["compose-config.sh"]
     TargetCfg["configs/targets/<device>.config"] --> Config
     AppCfg["configs/apps/common or <repo>/<flavor>.config"] --> Config
-    DriverCfg["configs/drivers/<repo>/common.config"] --> Config
+    DriverCfg["configs/drivers/<repo>/<common|device>.config"] --> Config
     Config --> DotConfig["openwrt/.config + make defconfig"]
 
     Reusable --> Build["build.sh phases"]
@@ -130,7 +130,7 @@ Use these checks after manifest, workflow, or matrix changes:
 ```powershell
 node scripts\openwrts.mjs validate-manifest
 node scripts\openwrts.mjs generate-workflows --check
-node scripts\openwrts.mjs resolve-matrix --repo lede --device x86_64
+node scripts\openwrts.mjs resolve-matrix --repo lede --device rockchip
 node scripts\openwrts.mjs resolve-matrix --repo immortalwrt --device all
 node scripts\openwrts.mjs resolve-matrix --repo auto
 ```
